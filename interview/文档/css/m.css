@@ -1,0 +1,171 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+    v5.0.1 | 20191019
+    License: none (public domain)
+ */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, menu, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+main, menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, main, menu, nav, section {
+  display: block;
+}
+/* HTML5 hidden-attribute fix for newer browsers */
+*[hidden] {
+  display: none;
+}
+body {
+  line-height: 1;
+}
+menu, ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* 移动端代码 */
+body {
+  background: #f5f7fa;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.rows {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+.rows:after {
+  clear: both;
+  display: table;
+  content: " ";
+  box-sizing: border-box;
+}
+.rows > .col-md-2 {
+  width: 16.66666%;
+}
+.rows > .col-md-3 {
+  width: 25%;
+}
+.rows > .col-md-4 {
+  width: 33.33333%;
+}
+.rows > .col-md-6 {
+  width: 50%;
+}
+.rows > .col-md-20 {
+  width: 20%;
+}
+.rows > .col-md-2,
+.rows > .col-md-3,
+.rows > .col-md-4,
+.rows > .col-md-6,
+.rows > .col-md-9,
+.rows > .col-md-8,
+.rows > .col-md-20 {
+  box-sizing: border-box;
+  float: left;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.rows > .col-md-6 img {
+  max-width: 100%;
+  background: #fff;
+}
+h2 {
+  font-size: 18px;
+  font-weight: 700;
+  padding: 0 5px;
+  margin-bottom: 15px;
+}
+.note-home {
+  padding: 20px 10px;
+  background: #f5f7fa;
+}
+.note-list {
+  background: #fff;
+  padding: 10px 5px 0 5px;
+  border-radius: 5px;
+}
+.note-list > .col-md-20 {
+  width: 33.333%;
+  padding: 0 5px;
+  margin-bottom: 10px;
+}
+.note-list > .col-md-20 > a {
+  display: block;
+  padding: 12px 5px;
+  font-size: 12px;
+  color: #333;
+  line-height: 1.5;
+  text-align: center;
+  background: #f5f5f5;
+  text-decoration: none;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+.note-list > .col-md-20 > a img {
+  display: block;
+  height: 36px;
+  margin: 0 auto;
+}
+.note-list > .col-md-20 > a span {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 5px;
+}
+@media (min-width: 1200px) {
+  .note-home {
+    padding: 30px 10px;
+  }
+  .note-list > .col-md-20 {
+    width: 20%;
+  }
+  .note-list > .col-md-20 > a {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .note-list > .col-md-20 > a img {
+    margin: 0;
+  }
+  .note-list > .col-md-20 > a span {
+    line-height: 30px;
+  }
+}
