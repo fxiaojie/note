@@ -1,4 +1,4 @@
-# vue3快速上手
+vue3快速上手
 
 ## 1.Vue3简介
 
@@ -350,7 +350,7 @@ npm run dev
 
 
 
-- Vue3.0中可以继续使用Vue2.x中的生命周期钩子，但有有两个被更名：
+- Vue3.0中可以继续使用Vue2.x中的生命周期钩子，但有两个被更名：
     - ```beforeDestroy```改名为 ```beforeUnmount```
     - ```destroyed```改名为 ```unmounted```
 - Vue3.0也提供了 Composition API 形式的生命周期钩子，与Vue2.x中钩子对应关系如下：
@@ -392,7 +392,7 @@ npm run dev
 
 - 什么时候使用?
     -  如果有一个对象数据，结构比较深, 但变化时只是外层属性变化 ===> shallowReactive。
-    -  如果有一个对象数据，后续功能不会修改该对象中的属性，而是生新的对象来替换 ===> shallowRef。
+    -  如果有一个对象数据，后续功能不会修改该对象中的属性，而是生成新的对象来替换 ===> shallowRef。
 
 
 ## 2.readonly 与 shallowReadonly
@@ -507,18 +507,22 @@ npm run dev
 
 使用传统OptionsAPI中，新增或者修改一个需求，就需要分别在data，methods，computed里修改 。
 
-<img src="https://gitee.com/i_xiaojie/waring/raw/master/f84e4e2c02424d9a99862ade0a2e4114~tplv-k3u1fbpfcp-watermark.image" alt="img" style="zoom:80%;" />
+<img src="https://i.loli.net/2021/11/12/jmYiJcIhWR6bCnf.gif" alt="img" style="zoom: 67%;" />
 
-<img src="https://gitee.com/i_xiaojie/waring/raw/master/e5ac7e20d1784887a826f6360768a368~tplv-k3u1fbpfcp-watermark.image" alt="img" style="zoom:80%;" />
+<img src="https://i.loli.net/2021/11/12/lN9RIZywtvOejBC.gif" alt="img" style="zoom: 67%;" />
+
+
+
+
 
 
 ## 2.Composition API 的优势
 
 我们可以更加优雅的组织我们的代码，函数。让相关功能的代码更加有序的组织在一起。
 
-<img src="https://gitee.com/i_xiaojie/waring/raw/master/bc0be8211fc54b6c941c036791ba4efe~tplv-k3u1fbpfcp-watermark.image" alt="img" style="zoom:80%;" />
+<img src="https://gitee.com/i_xiaojie/waring/raw/master/bc0be8211fc54b6c941c036791ba4efe~tplv-k3u1fbpfcp-watermark.image" alt="img" style="zoom: 67%;" />
 
-<img src="https://gitee.com/i_xiaojie/waring/raw/master/6cc55165c0e34069a75fe36f8712eb80~tplv-k3u1fbpfcp-watermark.image" alt="img" style="zoom:80%;" />
+<img src="https://i.loli.net/2021/11/12/LGivZJwbK3dfy9Y.gif" alt="img" style="zoom: 67%;" /> 
 
 # 五、新的组件
 
