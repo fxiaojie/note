@@ -520,7 +520,7 @@ npm run dev
 
 我们可以更加优雅的组织我们的代码，函数。让相关功能的代码更加有序的组织在一起。
 
-<img src="https://gitee.com/i_xiaojie/waring/raw/master/bc0be8211fc54b6c941c036791ba4efe~tplv-k3u1fbpfcp-watermark.image" alt="img" style="zoom: 67%;" />
+<img src="https://i.loli.net/2021/11/12/thq4x6NUBrfmedF.gif" alt="img" style="zoom: 67%;" />
 
 <img src="https://i.loli.net/2021/11/12/LGivZJwbK3dfy9Y.gif" alt="img" style="zoom: 67%;" /> 
 
