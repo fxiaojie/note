@@ -71,7 +71,7 @@ async function fn () {
 fn()
 ```
 
-![watermark](D:\photo\watermark.png)
+![watermark](https://gitee.com/i_xiaojie/waring/raw/master/watermark.png)
 
 其实就类似于生活中的`排队`，咱们生活中排队买东西，肯定是要上一个人买完，才轮到下一个人。而上面也一样，在`async`函数中，`await`规定了异步操作只能一个一个排队执行，从而达到**用同步方式，执行异步操作**的效果，这里注意了：**`await`只能在`async`函数中使用，不然会报错哦**
 

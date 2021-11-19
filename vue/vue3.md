@@ -1,4 +1,4 @@
-vue3快速上手
+# vue3快速上手
 
 ## 1.Vue3简介
 
@@ -522,7 +522,7 @@ npm run dev
 
 <img src="https://i.loli.net/2021/11/12/thq4x6NUBrfmedF.gif" alt="img" style="zoom: 67%;" />
 
-<img src="https://i.loli.net/2021/11/12/LGivZJwbK3dfy9Y.gif" alt="img" style="zoom: 67%;" /> 
+<img src="https://i.loli.net/2021/11/12/LGivZJwbK3dfy9Y.gif" alt="img" style="zoom: 67%;" />   
 
 # 五、新的组件
 
