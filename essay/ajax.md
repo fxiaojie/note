@@ -177,8 +177,6 @@ https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview
   POST /login
   ```
 
-  
-
 2. 多个请求头
 
   ```
@@ -186,8 +184,6 @@ https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview
   Cookie: BAIDUID=AD3B0FA706E; BIDUPSID=AD3B0FA706;
   Content-Type: application/x-www-form-urlencoded 或者application/json
   ```
-
-  
 
 3. 请求体
 

@@ -43,25 +43,40 @@ div:after{
 ## 深拷贝
 
 ```js
-    function cloneDeep (target) {
-        // 判断是否传入类型为Object
-        if (typeof target !== 'object' || !target) {
-            return target;
-        }
-        // 声明新对象
-        let newTarget = target instanceof Array === true ? [] : {};
-        // 循环对象 递归复制给新对象
-        for (let key in target) {
-            // 判断属性是否在对象本身上
-            if (target.hasOwnProperty(key)) {
-                // 递归调用
-                newTarget[key] = cloneDeep(target[key]);
-            }
-        }
-        // 返回新对象
-        return newTarget;
+function cloneDeep (target) {
+    // 判断是否传入类型为Object
+    if (typeof target !== 'object' || !target) {
+        return target;
     }
+    // 声明新对象
+    let newTarget = target instanceof Array === true ? [] : {};
+    // 循环对象 递归复制给新对象
+    for (let key in target) {
+        // 判断属性是否在对象本身上
+        if (target.hasOwnProperty(key)) {
+            // 递归调用
+            newTarget[key] = cloneDeep(target[key]);
+        }
+    }
+    // 返回新对象
+    return newTarget;
+}
 
+function deepClone(obj) {
+  if (typeof obj !== 'object') {
+    return obj
+  }
+
+  let newObj = obj instanceof Array ? [] : {};
+  for(let k in obj) {
+    if(typeof k === 'object') {
+      deepClone(obj[k])
+    }else {
+      newObj[k] = obj[k]
+    }
+  }
+  return newObj
+}
 
 Array.from()	// 只针对数组
 let obj2 = {...obj1}
@@ -76,17 +91,17 @@ Object.assign(target,source)
 ## 防抖
 
 ```js
-    function debounce(fn, wait) {
-      let time = null;
-      return function() {
-        if(time !== null) {
-          clearTimeout(time);
-        }
-        time = setTimeout(() => {
-          fn.call(this);
-        }, wait)
-      }
+function debounce(fn, wait) {
+  let timer;
+  return function (...args) {
+    if(timer) {
+      clearTimeout(timer)
     }
+    timer = setTimeout(() => {
+      fn.apply(this, args)
+    }, wait)
+  }
+}
 ```
 
 ## 节流
