@@ -411,7 +411,7 @@ Promise回调函数中的第一个参数`resolve`，会对Promise执行"拆箱"�
 
 #### Ⅲ-promise的基本流程
 
-> ![Promise系统学习_promise工作流程](https://gitee.com/i_xiaojie/waring/raw/master/Promise%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0_promise%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png)
+> ![Promise3](https://gitee.com/i_xiaojie/waring/raw/master/Promise3.png)
 
 #### Ⅳ-promise的基本使用
 
