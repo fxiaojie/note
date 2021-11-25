@@ -575,7 +575,7 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 回调函数嵌套调用, 外部回调函数异步执行的结果是嵌套的回调执行的条件
 >
-> ![Promise系统学习_回调地狱](https://gitee.com/i_xiaojie/waring/raw/master/Promise%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0_%E5%9B%9E%E8%B0%83%E5%9C%B0%E7%8B%B1.jpg)
+> ![Promise1](https://gitee.com/i_xiaojie/waring/raw/master/Promise1.jpg)
 
 ##### 2、回调地狱的缺点?
 
@@ -3089,7 +3089,7 @@ Promise.race = function (promises) {
 
 > 原理图:
 >
-> ![Promise系统学习_宏任务微任务原理图](https://gitee.com/i_xiaojie/waring/raw/master/Promise%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0_%E5%AE%8F%E4%BB%BB%E5%8A%A1%E5%BE%AE%E4%BB%BB%E5%8A%A1%E5%8E%9F%E7%90%86%E5%9B%BE.png)
+> ![Promise2](https://gitee.com/i_xiaojie/waring/raw/master/Promise2.png)
 >
 > 说明:
 >
