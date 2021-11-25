@@ -765,29 +765,76 @@ $.post(url, [data], [callback], [type])
 
 ```js
 $.ajax({
-// url
-url: 'http://127.0.0.1:8000/jquery-server',
-// 参数
-data: {a:100, b:200},
-// 请求类型
-type: 'GET',
-// 响应体结果
-dataType: 'json',
-// 成功的回调
-success: function(data){console.log(data);},
-// 超时时间
-timeout: 2000,
-// 失败的回调
-error: function(){console.log('出错拉~');},
-// 头信息
-headers: {
-	c: 300,
-	d: 400
-}	
+  // url
+  url: 'http://127.0.0.1:8000/jquery-server',
+  // 参数
+  data: {a:100, b:200},
+  // 请求类型
+  type: 'GET',
+  // 响应体结果
+  dataType: 'json',
+  // 成功的回调
+  success: function(data){console.log(data);},
+  // 超时时间
+  timeout: 2000,
+  // 失败的回调
+  error: function(){console.log('出错拉~');},
+  // 头信息
+  headers: {
+    c: 300,
+    d: 400
+  }	
 })
 ```
 
-## 5.跨域
+## 5.axios
+
+```
+axios.get(url, {
+	// url 参数
+	params: {
+	
+	},
+	// 请求头信息
+	headers: {
+		
+	}
+})
+```
+
+```
+axios.post(url[, data[, config]])
+```
+
+```
+// Send a POST request
+axios({
+  method: 'post',
+  url: '/user/12345',
+  data: {
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  }
+});
+```
+
+```
+// GET request for remote image in node.js
+axios({
+  method: 'get',
+  url: 'http://bit.ly/2mTM3nY',
+  responseType: 'stream'
+})
+	.then(function (response) {
+    response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
+  });
+```
+
+## 6.fetch
+
+
+
+## 7.跨域
 
 ### 1 同源策略
 
