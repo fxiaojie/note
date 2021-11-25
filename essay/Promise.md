@@ -417,7 +417,7 @@ Promise回调函数中的第一个参数`resolve`，会对Promise执行"拆箱"�
 
 ###### 1.使用 promise 封装基于定时器的异步
 
-```
+```html
 <script >
   function doDelay(time) {
     // 1. 创建 promise 对象(pending 状态), 指定执行器函数
@@ -444,14 +444,14 @@ promise.then(// promise 指定成功或失败的回调函数来获取成功的 v
     },
     reason => { // 失败的回调函数 onRejected, 得到失败的 reason
       console.log('失败的 reason: ', reason)
-    },
-  ) <
-  /script>
+    }
+) 
+</script>
 ```
 
 ###### 2.使用 promise 封装 ajax 异步请求
 
-```
+```html
 <script >
   /*
   可复用的发 ajax 请求的函数: xhr + promise
@@ -476,8 +476,7 @@ promise.then(// promise 指定成功或失败的回调函数来获取成功的 v
       xhr.send()
     })
   }
-promiseAjax('https://api.apiopen.top2/getJoke?page=1&count=2&type=vid
-    eo ')
+promiseAjax('https://api.apiopen.top2/getJoke?page=1&count=2&type=video ')
     .then(
       data => {
         console.log('显示成功数据', data)
@@ -485,12 +484,13 @@ promiseAjax('https://api.apiopen.top2/getJoke?page=1&count=2&type=vid
       error => {
         alert(error.message)
       }
-    ) </script>
+    ) 
+</script>
 ```
 
 ###### 3.fs模块使用Promise
 
-```
+```js
 const fs = require('fs');
 
 //回调函数 形式----------------------------------------------------
@@ -534,7 +534,7 @@ mineReadFile('./resource/content.txt')
 >
 > 在每个.then()中我可以将数据再次传出给下一个then()
 
-```
+```js
 mineReadFile('./11.txt').then(result=>{
   console.log(result.toString())
   return result
@@ -547,7 +547,7 @@ mineReadFile('./11.txt').then(result=>{
 
 > 可以将函数直接变成promise的封装方式,不用再去手动封装
 
-```
+```js
 //引入 util 模块
 const util = require('util');
 //引入 fs 模块
@@ -567,7 +567,7 @@ mineReadFile('./resource/content.txt').then(value => {
 ### Ⅰ-指定回调函数的方式更加灵活
 
 > 1. 旧的: 必须在启动异步任务前指定
-> 2. promise: 启动异步任务 => 返回promie对象 => 给promise对象绑定回调函 数(甚至可以在异步任务结束后指定/多个)
+> 2. promise: 启动异步任务 => 返回promie对象 => 给promise对象绑定回调函数(甚至可以在异步任务结束后指定多个)
 
 ### Ⅱ-支持链式调用, 可以解决回调地狱问题
 
@@ -629,9 +629,9 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > 说明: 返回一个成功/失败的 promise 对象,直接改变promise状态
 >
-> ```
->   let p3 = Promise.reject(new Promise((resolve, reject) => {  resolve('OK'); }));      
->   console.log(p3);
+> ```js
+> let p3 = Promise.reject(new Promise((resolve, reject) => {  resolve('OK'); }));      
+> console.log(p3);
 > ```
 
 #### Ⅴ-Promise.reject 方法: (reason) => {}
@@ -644,13 +644,13 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > promises: 包含 n 个 promise 的数组
 >
-> 说明: 返回一个新的 promise, 只有所有的 promise `都成功才成功`, 只要有一 个失败了就直接失败
+> 说明: 返回一个新的 promise, 只有所有的 promise `都成功才成功`, 只要有一 个失败了就直接失败(失败的 promise 的结果状态就是最终的结果状态)
 >
-> ```
+> ```js
 >  let p1 = new Promise((resolve, reject) => { resolve('成功');  })
->     let p2 = Promise.reject('错误错误错误');
->     let p3 = Promise.resolve('也是成功')
->     const result = Promise.all([p1, p2, p3]);
+>    let p2 = Promise.reject('错误错误错误');
+>    let p3 = Promise.resolve('也是成功')
+>    const result = Promise.all([p1, p2, p3]);
 >  console.log(result);
 > ```
 
@@ -662,7 +662,7 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > 如p1延时,开启了异步,内部正常是同步进行,所以`p2>p3>p1`,结果是`P2`
 >
-> ```
+> ```js
 >  let p1 = new Promise((resolve, reject) => {
 >      setTimeout(() => {
 >        resolve('OK');
@@ -691,7 +691,7 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 当 promise `改变为对应状态时`都会调用,改变状态后,多个回调函数都会调用,并不会自动停止
 >
-> ```
+> ```js
 > let p = new Promise((resolve, reject) => {  resolve('OK');});
 >   ///指定回调 - 1
 >   p.then(value => {  console.log(value); });
@@ -703,39 +703,32 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > (1) 都有可能, 正常情况下是先指定回调再改变状态, 但也可以先改状态再指定回调
 >
->  先指定回调再改变状态(`异步`):先指定回调--> 再改变状态 -->改变状态后才进入异步队列执行回调函数
+>  ​	先指定回调再改变状态(`异步`):先指定回调--> 再改变状态 -->改变状态后才进入异步队列执行回调函数
 >
->  先改状态再指定回调(`同步`):改变状态 -->指定回调 `并马上执行`回调
+>  ​	先改状态再指定回调(`同步`):改变状态 -->指定回调 `并马上执行`回调
 >
 > (2) 如何先改状态再`指定`回调? -->注意:指定并不是执行
 >
->  ① 在执行器中直接调用 resolve()/reject() -->即,不使用定时器等方法,执行器内直接同步操作
+>  ​	① 在执行器中直接调用 resolve()/reject() -->即,不使用定时器等方法,执行器内直接同步操作
 >
->  ② 延迟更长时间才调用 then() -->即,在`.then()`这个方法外再包一层例如延时器这种方法
+>  ​	② 延迟更长时间才调用 then() -->即,在`.then()`这个方法外再包一层例如延时器这种方法
 >
 > (3) 什么时候才能得到数据?
 >
->  ① 如果先指定的回调, 那当状态发生改变时, 回调函数就会调用, 得到数据
+>  ​	① 如果先指定的回调, 那当状态发生改变时, 回调函数就会调用, 得到数据
 >
->  ② 如果先改变的状态, 那当指定回调时, 回调函数就会调用, 得到数据
+>  ​	② 如果先改变的状态, 那当指定回调时, 回调函数就会调用, 得到数据
 >
 > ```js
 > let p = new Promise((resolve, reject) => {
->   //异步写法,这样写会先指定回调,再改变状态
->   setTimeout(() => {resolve('OK'); }, 1000);
->   //这是同步写法,这样写会先改变状态,再指定回调
->   resolve('OK'); 
+>     //异步写法,这样写会先指定回调,再改变状态
+>     setTimeout(() => {resolve('OK'); }, 1000);
+>     //这是同步写法,这样写会先改变状态,再指定回调
+>     resolve('OK'); 
 > });
 > p.then(value => {console.log(value);}, reason => {})
 > ```
 >
-> (4) 个人理解--结合源码
->
->  源码中,promise的状态是通过一个`默认为padding`的变量进行判断,所以当你`resolve/reject`延时(异步导致当then加载时,状态还未修改)后,这时直接进行p.then()会发现,目前状态还是`进行中`,所以只是这样导致只有同步操作才能成功.
->
->  所以promise将传入的`回调函数`拷贝到promise对象实例上,然后在`resolve/reject`的执行过程中再进行调用,达到异步的目的
->
->  具体代码实现看下方自定义promise
 
 #### Ⅳ-promise.then()返回的新 promise 的结果状态由什么决定?
 
@@ -743,11 +736,11 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > (2) 详细表达:
 >
->  ① 如果抛出异常, 新 promise 变为 rejected, reason 为抛出的异常
+> ​	① 如果抛出异常, 新 promise 变为 rejected, reason 为抛出的异常
 >
->  ② 如果返回的是非 promise 的任意值, 新 promise 变为 resolved, value 为返回的值
+> ​	② 如果返回的是非 promise 的任意值, 新 promise 变为 resolved, value 为返回的值
 >
->  ③ 如果返回的是另一个新 promise, 此 promise 的结果就会成为新 promise 的结果
+> ​	③ 如果返回的是另一个新 promise, 此 promise 的结果就会成为新 promise 的结果
 >
 > ```js
 > let p = new Promise((resolve, reject) => {
@@ -764,7 +757,7 @@ mineReadFile('./resource/content.txt').then(value => {
 >   return new Promise((resolve, reject) => {
 >     // resolve('success');
 >     reject('error');
-> 	});
+>   });
 > }, reason => {
 >   console.warn(reason);
 > });
@@ -778,10 +771,10 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > ```html
 > <script>
->   let p = new Promise((resolve, reject) => { setTimeout(() => {resolve('OK'); }, 1000); });
->   p.then(value => {return new Promise((resolve, reject) => { resolve("success"); });})
->   .then(value => {console.log(value);})
->   .then(value => { console.log(value);})
+>     let p = new Promise((resolve, reject) => { setTimeout(() => {resolve('OK'); }, 1000); });
+>     p.then(value => {return new Promise((resolve, reject) => { resolve("success"); });})
+>     .then(value => {console.log(value);})
+>     .then(value => { console.log(value);})
 > </script>
 > ```
 
@@ -820,13 +813,13 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > (2) 办法: 在回调函数中返回一个 `pendding` 状态的`promise 对象`
 >
-> ```
+> ```html
 > <script>
-> let p = new Promise((resolve, reject) => {setTimeout(() => { resolve('OK');}, 1000);});
-> p.then(value => {return new Promise(() => {});})//有且只有这一个方式
-> .then(value => { console.log(222);})
-> .then(value => { console.log(333);})
-> .catch(reason => {console.warn(reason);});
+>   let p = new Promise((resolve, reject) => {setTimeout(() => { resolve('OK');}, 1000);});
+>   p.then(value => {return new Promise(() => {});})//有且只有这一个方式
+>   .then(value => { console.log(222);})
+>   .then(value => { console.log(333);})
+>   .catch(reason => {console.warn(reason);});
 > </script>
 > ```
 
@@ -840,14 +833,14 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 我们可以将图片的加载写成一个`Promise`，一旦加载完成，`Promise`的状态就发生变化。
 >
-> ```
+> ```js
 > const preloadImage = function (path) {
->  return new Promise(function (resolve, reject) {
->    const image = new Image();
->    image.onload  = resolve;
->    image.onerror = reject;
->    image.src = path;
->  });
+>    return new Promise(function (resolve, reject) {
+>        const image = new Image();
+>        image.onload  = resolve;
+>        image.onerror = reject;
+>        image.src = path;
+>    });
 > };
 > ```
 
@@ -855,36 +848,36 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 使用 Generator 函数管理流程，遇到异步操作的时候，通常返回一个`Promise`对象。
 >
-> ```
+> ```js
 > function getFoo () {
->  return new Promise(function (resolve, reject){
->    resolve('foo');
->  });
+>    return new Promise(function (resolve, reject){
+>      	resolve('foo');
+>    });
 > }
 > 
 > const g = function* () {
->  try {
->    const foo = yield getFoo();
->    console.log(foo);
->  } catch (e) {
->    console.log(e);
->  }
+>    try {
+>        const foo = yield getFoo();
+>        console.log(foo);
+>    } catch (e) {
+>      	console.log(e);
+>    }
 > };
 > 
 > function run (generator) {
->  const it = generator();
+>    const it = generator();
 > 
->  function go(result) {
->    if (result.done) return result.value;
+>    function go(result) {
+>        if (result.done) return result.value;
 > 
->    return result.value.then(function (value) {
->      return go(it.next(value));
->    }, function (error) {
->      return go(it.throw(error));
->    });
->  }
+>        return result.value.then(function (value) {
+>          return go(it.next(value));
+>        }, function (error) {
+>          return go(it.throw(error));
+>        });
+>    }
 > 
->  go(it.next());
+>    go(it.next());
 > }
 > 
 > run(g);
@@ -906,10 +899,10 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 下面代码创造了一个`Promise`实例。
 >
-> ```
+> ```js
 > const promise = new Promise(function(resolve, reject) {
-> if (/* 异步操作成功 */)  resolve(value); //将该 Promise 修改为成功且返回
-> else  reject(error); //将该 Promise 修改为失败且返回
+>   if (/* 异步操作成功 */)  resolve(value); //将该 Promise 修改为成功且返回
+>   else  reject(error); //将该 Promise 修改为失败且返回
 > });
 > ```
 >
@@ -921,11 +914,11 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > `Promise`实例生成以后，可以用 [ then() ] 方法分别指定`resolved`状态和`rejected`状态的回调函数。
 >
-> ```
+> ```js
 > promise.then(function(value) {
-> // 当promise状态返回为resolve 时会执行的回调函数
+> 	// 当promise状态返回为resolve 时会执行的回调函数
 > }, function(error) {
-> // 当promise状态返回为rejected 时会执行的回调函数
+> 	// 当promise状态返回为rejected 时会执行的回调函数
 > });
 > ```
 >
@@ -937,12 +930,12 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > > setTimeout的第三个参数是给第一个函数的参数，而且是先于第一个参数(即回调函数)执行的
 >
-> ```
+> ```js
 > function timeout(ms) { //声明一个方法, 传入的 参数ms 为延时器时间
-> return new Promise((resolve, reject) => {
->   //这行代码实际效果: 当 [ms] 毫秒后 执行 resolve('努力学习的汪')
->   setTimeout(resolve, ms, '努力学习的汪'); 
-> });
+>   return new Promise((resolve, reject) => {
+>     //这行代码实际效果: 当 [ms] 毫秒后 执行 resolve('努力学习的汪')
+>     setTimeout(resolve, ms, '努力学习的汪'); 
+>   });
 > }
 > 
 > timeout(1000).then((value) => {  console.log(value) });
@@ -953,14 +946,14 @@ mineReadFile('./resource/content.txt').then(value => {
 
 #### ④ Promise 新建后就会立即执行
 
-> ```
+> ```js
 > let promise = new Promise(function(resolve, reject) {
-> console.log('Promise');
-> resolve();
+>   console.log('Promise');
+>   resolve();
 > });
 > 
 > promise.then(function() {
-> console.log('resolved.');
+> 	console.log('resolved.');
 > });
 > 
 > console.log('Hi!');
@@ -991,21 +984,21 @@ mineReadFile('./resource/content.txt').then(value => {
 
 #### ⑤ 举个异步加载图片的栗子
 
-> ```
+> ```js
 > function loadImageAsync(url) {
-> return new Promise(function(resolve, reject) {
-> const image = new Image();
+>   return new Promise(function(resolve, reject) {
+>     const image = new Image();
 > 
-> image.onload = function() {
-> console.log('图片加载成功')
-> resolve(image);
-> };
+>     image.onload = function() {
+>       console.log('图片加载成功')
+>       resolve(image);
+>     };
 > 
-> image.onerror = function() {
-> reject(new Error(`无法从 ${url} 中加载图片` ));
-> };
-> image.src = url;
-> });
+>     image.onerror = function() {
+>       reject(new Error(`无法从 ${url} 中加载图片` ));
+>     };
+>     image.src = url;
+>   });
 > }
 > loadImageAsync('正确的url') //打印图片加载成功
 > loadImageAsync('错误的url') //抛出异常
@@ -1019,28 +1012,28 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > Ajax知识点不懂的同学要去补一下: 这里可以看本人梳理的ajax笔记 --> [点我跳转](https://gitee.com/hongjilin/hongs-study-notes/tree/master/编程_前端开发学习笔记/Ajax、Axios学习笔记)
 >
-> ```
+> ```js
 > const getJSON = function(url) {
-> const promise = new Promise(function(resolve, reject){
-> const handler = function() {
-> if (this.readyState !== 4)  return; //当readyState 为4 时直接返回,不修改 promise 状态
-> if (this.status === 200) resolve(this.response); //返回状态为 200 时将状态修改为成功,且将响应内容返回
->  else  reject(new Error(this.statusText)); //失败时抛出异常
-> };
-> const client = new XMLHttpRequest(); //实例化xml实例
-> client.open("GET", url); //下面这几行都是对xml实例进行配置,不懂的同学要去补一下ajax知识点
-> client.onreadystatechange = handler;
-> client.responseType = "json";
-> client.setRequestHeader("Accept", "application/json");
-> client.send();
-> });
-> return promise;
+>   const promise = new Promise(function(resolve, reject){
+>     const handler = function() {
+>       if (this.readyState !== 4)  return; //当readyState 为4 时直接返回,不修改 promise 状态
+>       if (this.status === 200) resolve(this.response); //返回状态为 200 时将状态修改为成功,且将响应内容返回
+>        else  reject(new Error(this.statusText)); //失败时抛出异常
+>     };
+>     const client = new XMLHttpRequest(); //实例化xml实例
+>     client.open("GET", url); //下面这几行都是对xml实例进行配置,不懂的同学要去补一下ajax知识点
+>     client.onreadystatechange = handler;
+>     client.responseType = "json";
+>     client.setRequestHeader("Accept", "application/json");
+>     client.send();
+>   });
+>   return promise;
 > };
 > 
 > getJSON("./hong.json").then(function(json) {
-> console.log('Contents: ' , json);
+> 	console.log('Contents: ' , json);
 > }, function(error) {
-> console.error('出错了', error);
+> 	console.error('出错了', error);
 > });
 > ```
 >
@@ -1056,7 +1049,7 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 如果调用`resolve`函数和`reject`函数时带有参数，那么它们的参数会被传递给回调函数。`reject`函数的参数通常是`Error`对象的实例，表示抛出的错误；`resolve`函数的参数除了正常的值以外，还可能是另一个 Promise 实例，比如像下面这样。
 >
-> ```
+> ```js
 > const p1 = new Promise(function (resolve, reject) {});
 > 
 > const p2 = new Promise(function (resolve, reject) { resolve(p1) })
@@ -1066,13 +1059,13 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > 注意，这时`p1`的状态就会传递给`p2`，也就是说，`p1`的状态决定了`p2`的状态。如果`p1`的状态是`pending`，那么`p2`的回调函数就会等待`p1`的状态改变；如果`p1`的状态已经是`resolved`或者`rejected`，那么`p2`的回调函数将会立刻执行。
 >
-> ```
+> ```js
 > const p1 = new Promise(function (resolve, reject) {
-> setTimeout(() => reject(new Error('p1的状态改为错误')), 0)
+> 	setTimeout(() => reject(new Error('p1的状态改为错误')), 0)
 > })
 > 
 > const p2 = new Promise(function (resolve, reject) {
-> setTimeout(() => resolve(p1), 3000) //将p1 传给p2
+> 	setTimeout(() => resolve(p1), 3000) //将p1 传给p2
 > })
 > 
 > p2.then(result => console.log(result),result=>console.log('失败'))
@@ -1097,12 +1090,12 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 调用`resolve`或`reject`并不会终结 Promise 的参数函数的执行。
 >
-> ```
+> ```js
 > new Promise((resolve, reject) => {
-> resolve(1);
-> console.log(2);
+>   resolve(1);
+>   console.log(2);
 > }).then(r => {
-> console.log(r);
+> 	console.log(r);
 > });
 > // 2
 > // 1
@@ -1114,11 +1107,11 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 一般来说，调用`resolve`或`reject`以后，Promise 的使命就完成了，后继操作应该放到`then`方法里面，而不应该直接写在`resolve`或`reject`的后面。所以，最好在它们前面加上`return`语句，这样就不会有意外。
 >
-> ```
+> ```js
 > new Promise((resolve, reject) => {
-> return resolve(1);
-> // 后面的语句不会执行
-> console.log(2);
+>   return resolve(1);
+>   // 后面的语句不会执行
+>   console.log(2);
 > })
 > ```
 >
@@ -1128,13 +1121,13 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 一般来说,错误发生在 Promise 内,是不会传到外部的,只会在 Promise 内部消化,详见下方API详解部分的 [②Promise.prototype.catch()](#② Promise.prototype.catch())
 >
-> ```
+> ```js
 > const promise = new Promise(function (resolve, reject) {
-> resolve('成功了'); //如果你加了 return , 函数执行到此步就停止了
-> setTimeout(function () { throw new Error('错误错误!!!!!') }, 0)
+>   resolve('成功了'); //如果你加了 return , 函数执行到此步就停止了
+>   setTimeout(function () { throw new Error('错误错误!!!!!') }, 0)
 > });
 > promise.then(function (value) { console.log(value) });
-> // ok
+> // 成功了
 > // Uncaught Error: 错误错误!!!!
 > ```
 >
@@ -1152,11 +1145,11 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > `then`方法返回的是一个新的`Promise`实例（注意，不是原来那个`Promise`实例）。因此可以采用链式写法，即`then`方法后面再调用另一个`then`方法。
 >
-> ```
+> ```js
 > getJSON("./hong.json").then(function(json) {
-> return json.name;
+> 	return json.name;
 > }).then(function(name) {
-> console.log(`My name is ${name}` )
+> 	console.log(`My name is ${name}` )
 > });
 > ```
 >
@@ -1166,12 +1159,12 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 采用链式的`then`，可以指定一组按照次序调用的回调函数。这时，前一个回调函数，有可能返回的还是一个`Promise`对象（即有异步操作），这时后一个回调函数，就会等待该`Promise`对象的状态发生变化，才会被调用。
 >
-> ```
+> ```js
 > getJSON("./hong.json")
 > .then(function(json) {  return getJSON(json.name)})
 > .then(
->     function (name) { console.log("resolved: My name is ", name)}, 
->     function (err){ console.log("rejected: ", err)}
+>      function (name) { console.log("resolved: My name is ", name)}, 
+>      function (err){ console.log("rejected: ", err)}
 >    );
 > ```
 >
@@ -1181,12 +1174,12 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 如果采用箭头函数，上面的代码可以写得更简洁 (实际代码中基本都是这样写了)
 >
-> ```
+> ```js
 > getJSON("./hong.json")
 > .then(json => getJSON(json.name) )
 > .then(
->     name => console.log("resolved: My name is ", name), 
->     err => console.log("rejected: ", err)
+>      name => console.log("resolved: My name is ", name), 
+>      err => console.log("rejected: ", err)
 >    );
 > ```
 
@@ -1196,7 +1189,7 @@ mineReadFile('./resource/content.txt').then(value => {
 
 ##### a) 基本用法
 
-> ```
+> ```js
 > getJSON('./hong.json')
 > .then(function(posts) {})
 > .catch(function(error) {
@@ -1212,7 +1205,7 @@ mineReadFile('./resource/content.txt').then(value => {
 > > - 另外，`then()`方法指定的回调函数，如果运行中抛出错误，也会被`catch()`方法捕获。
 > > - 被 catch 方法捕获的前提是前方的 then() 方法中没有对 `rejected` 进行捕获处理(即没有写reject回调函数)
 >
-> ```
+> ```js
 > p.then((val) => console.log('指定成功回调:', val))
 > .catch((err) => console.log('在catch中进行 rejected 的处理', err));
 > // 等同于
@@ -1222,40 +1215,40 @@ mineReadFile('./resource/content.txt').then(value => {
 
 ##### b) `reject()`方法的作用，等同于抛出错误
 
-> ```
+> ```js
 > const promise = new Promise(function(resolve, reject) {
-> throw new Error('直接抛出错误');
+> 	throw new Error('直接抛出错误');
 > });
 > promise.catch(function(error) {
-> console.log('异常捕获: ',error);
+> 	console.log('异常捕获: ',error);
 > });
 > //异常捕获:  Error: 直接抛出错误
 > ```
 >
 > 上面代码中，`promise`抛出一个错误，就被`catch()`方法指定的回调函数捕获。注意，上面的写法与下面两种写法是等价的。
 >
-> ```
+> ```js
 > /******************  写法一 ***************************************/
 > const promise = new Promise(function(resolve, reject) {
-> try {
-> throw new Error('直接抛出错误');
-> } catch(e) {
-> console.log('进入catch,然后再用 reject(e)抛出 ')
-> reject(e) 
-> }
+>   try {
+>   	throw new Error('直接抛出错误');
+>   } catch(e) {
+>   	console.log('进入catch,然后再用 reject(e)抛出 ')
+>   	reject(e) 
+>   }
 > });
 > promise.catch(function(error) {
-> console.log(error);
+> 	console.log(error);
 > });
 > //进入catch,然后再用 reject(e)抛出 
 > //Error: 直接抛出错误
 > 
 > /******************  写法二 ***************************************/
 > const promise1 = new Promise(function(resolve, reject) {
-> reject(new Error('使用 reject() 抛出错误'));
+> 	reject(new Error('使用 reject() 抛出错误'));
 > });
 > promise1.catch(function(error) {
-> console.log(error);
+> 	console.log(error);
 > });
 > //Error: 使用 reject() 抛出错误
 > ```
@@ -1264,10 +1257,10 @@ mineReadFile('./resource/content.txt').then(value => {
 
 ##### c) 如果 Promise 状态已经被修改，再抛出错误是无效的
 
-> ```
+> ```js
 > const promise = new Promise(function(resolve, reject) {
-> resolve('成功了'); //换成 reject('成功了') 结果也是一样的
-> throw new Error('成功后扔抛出异常');
+>   resolve('成功了'); //换成 reject('成功了') 结果也是一样的
+>   throw new Error('成功后扔抛出异常');
 > });
 > promise
 > .then(function(value) { console.log(value) })
@@ -1281,7 +1274,7 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > Promise 对象的错误具有“冒泡”性质，会一直向后传递，直到被捕获为止。也就是说，错误总是会被下一个`catch`语句捕获。
 >
-> ```
+> ```js
 > getJSON('./hong.json') //第一个promise
 > .then(function(post) { //第二个promise
 >   	 return getJSON(post.commentURL)
@@ -1302,21 +1295,21 @@ mineReadFile('./resource/content.txt').then(value => {
 > - 当使用 promise 的 then 链式调用时, 可以在最后指定失败的回调
 > - 前面任何操作出了异常, 都会传到最后失败的回调中处理
 >
-> ```
+> ```js
 > getJSON('./hong.json')
->  .then(function(posts) { throw new Error('抛出异常') })
+>   .then(function(posts) { throw new Error('抛出异常') })
 >   .then(res=>console.log(res),e=>console.log('被then的错误回调捕获',e) )
->  .catch(function(error) {
->   	 // 处理 getJSON 和 前一个回调函数运行时发生的错误
+>   .catch(function(error) {
+>   	// 处理 getJSON 和 前一个回调函数运行时发生的错误
 >   	console.log('错误捕获: ', error);
 >   });
 > //执行结果: 被then的错误回调捕获 Error: 抛出异常
 > 
 > /******************** 利用异常穿透 ****************************************/
 > getJSON('./hong.json')
->  .then(function(posts) { throw new Error('抛出异常') })
+>   .then(function(posts) { throw new Error('抛出异常') })
 >   .then(res=>console.log(res) ) //此处差异,不指定 reject 回调,利用异常穿透传到最后
->  .catch(function(error) {
+>   .catch(function(error) {
 >   	console.log('错误捕获: ', error);
 >   });
 > //执行结果:  错误捕获:  Error: 抛出异常
@@ -1328,35 +1321,33 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 一般来说，不要在`then()`方法里面定义 Reject 状态的回调函数（即`then`的第二个参数），总是使用`catch`方法。
 >
-> ```
+> ```js
 > // bad
-> promise
-> .then(
-> data=> console.log('成功',data),
-> err=>console.log('失败了',err)
->   );
-> /********* 好的写法 ********************/
-> promise
-> .then( data=> console.log('成功',data)) //只指定成功回调
+> promise.then(
+>   data=> console.log('成功',data),
+>   err=>console.log('失败了',err)
+> );
+>   /********* 好的写法 ********************/
+> promise.then( data=> console.log('成功',data)) //只指定成功回调
 > .catch( err=>console.log('失败了',err));
 > ```
->
+> 
 > 上面代码中，第二种写法要好于第一种写法:
 >
 > - 理由是第二种写法可以捕获前面`then`方法执行中的错误
-> - 也更接近同步的写法（`try/catch`）
+>- 也更接近同步的写法（`try/catch`）
 > - 因此, 建议总是使用`catch()`方法，而不使用`then()`方法的第二个参数。
 
 ##### g) 与传统 `try/catch` 代码块的差异
 
 > 跟传统的`try/catch`代码块不同的是，如果没有使用`catch()`方法指定错误处理的回调函数，Promise 对象抛出的错误不会传递到外层代码，即不会有任何反应。
 >
-> ```
+> ```js
 > const someAsyncThing = function() {
-> return new Promise(function(resolve, reject) {
-> // 下面一行会报错，因为hong 没有声明
-> resolve( hong );
-> });
+>   return new Promise(function(resolve, reject) {
+>     // 下面一行会报错，因为hong 没有声明
+>     resolve( hong );
+>   });
 > };
 > //Promise 的 then() 处理,但不处理异常
 > someAsyncThing().then(function() { console.log('只指定成功回调,不处理异常错误') });
@@ -1376,12 +1367,12 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 一般总是建议，Promise 对象后面要跟`catch()`方法，这样可以处理 Promise 内部发生的错误。`catch()`方法返回的还是一个 Promise 对象，因此后面还可以接着调用`then()`方法。
 >
-> ```
+> ```js
 > const someAsyncThing = function() {
-> return new Promise(function(resolve, reject) {
-> // 下面一行会报错，因为 hong 没有声明
-> resolve( hong );
-> });
+>   return new Promise(function(resolve, reject) {
+>     // 下面一行会报错，因为 hong 没有声明
+>     resolve( hong );
+>   });
 > };
 > 
 > someAsyncThing()
@@ -1395,7 +1386,7 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > 如果没有报错，则会跳过`catch()`方法。
 >
-> ```
+> ```js
 > Promise.resolve('硬是成功了')
 > .catch(function(error) { console.log('捉错误', error) })
 > .then(v => console.log('catch后面的then: ',v) );
@@ -1408,20 +1399,20 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > `catch()`方法之中，还能再抛出错误。
 >
-> ```
+> ```js
 > const someAsyncThing = function() {
-> return new Promise(function(resolve, reject) {
-> // 下面一行会报错，因为 hong 没有声明
-> resolve( hong );
-> });
+>   return new Promise(function(resolve, reject) {
+>     // 下面一行会报错，因为 hong 没有声明
+>     resolve( hong );
+>   });
 > };
 > 
 > someAsyncThing()
 > .then(() =>  someOtherAsyncThing()) 
 > .catch(function(error) {
->   	 console.log('ctach:', error);
->   	 // 下面一行会报错，因为 sum 没有声明
->   	  sum ++;
+>   	console.log('ctach:', error);
+>   	// 下面一行会报错，因为 sum 没有声明
+>   	sum ++;
 >   })
 > .then(function() { console.log('捕获后的then()')});
 > 
@@ -1431,15 +1422,15 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > 上面代码中，`catch()`方法抛出一个错误，因为后面没有别的`catch()`方法了，导致这个错误不会被捕获，也不会传递到外层。如果改写一下，结果就不一样了。
 >
-> ```
+> ```js
 > someAsyncThing().then(function() {
-> return someOtherAsyncThing();
+>   return someOtherAsyncThing();
 > }).catch(function(error) {
-> console.log('catch: ', error);
-> // 下面一行会报错，因为 sum 没有声明
-> sum ++;
+>   console.log('catch: ', error);
+>   // 下面一行会报错，因为 sum 没有声明
+>   sum ++;
 > }).catch(function(error) {
-> console.log('catch()后的catch: ', error);
+>   console.log('catch()后的catch: ', error);
 > });
 > //catch:  ReferenceError: hong is not defined
 > //catch()后的catch:  ReferenceError: sum is not defined
@@ -1451,7 +1442,7 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > `finally()`方法用于指定不管 Promise 对象最后状态如何，都会执行的操作。该方法是 `ES2018` 引入标准的。
 >
-> ```
+> ```js
 > promise
 > .then(result => {···})
 > .catch(error => {···})
@@ -1466,15 +1457,15 @@ mineReadFile('./resource/content.txt').then(value => {
 
 ##### a) `finally`本质上是`then`方法的特例
 
-> ```
+> ```js
 > promise
 > .finally(() => {});
 > 
 > // 等同于
 > promise
 > .then(
-> result =>  result ,
-> error =>  throw error
+>   result =>  result ,
+>   error =>  throw error
 > );
 > ```
 >
@@ -1484,13 +1475,13 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 它的实现也很简单。
 >
-> ```
+> ```js
 > Promise.prototype.finally = function (callback) {
-> let P = this.constructor;
-> return this.then(
-> value  => P.resolve(callback()).then(() => value),
-> reason => P.resolve(callback()).then(() => { throw reason })
-> );
+>   let P = this.constructor;
+>   return this.then(
+>     value  => P.resolve(callback()).then(() => value),
+>     reason => P.resolve(callback()).then(() => { throw reason })
+>   );
 > };
 > ```
 >
@@ -1498,7 +1489,7 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > 从上面的实现还可以看到，`finally`方法总是会返回原来的值(传入什么即传出什么)
 >
-> ```
+> ```js
 > // resolve 的值是 undefined
 > Promise.resolve(2).then(() => {}, () => {})
 > 
@@ -1518,7 +1509,7 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > `Promise.all()`方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。
 >
-> ```
+> ```js
 > const p = Promise.all([p1, p2, p3]);
 > ```
 >
@@ -1535,16 +1526,16 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > ###### 下面是一个具体的例子。
 >
-> ```
+> ```js
 > // 生成一个Promise对象的数组
-> const promises = ['hong', 1, 2, 3, 4, 5].map(item {
-> return getJSON( item+'.json');
+> const promises = ['hong', 1, 2, 3, 4, 5].map(item => {
+> 	return getJSON( item+'.json');
 > });
 > 
 > Promise.all(promises).then(function (posts) {
-> // ...
+> 	// ...
 > }).catch(function(reason){
-> // ...
+> 	// ...
 > });
 > ```
 >
@@ -1552,7 +1543,7 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > ###### 下面是另一个例子
 >
-> ```
+> ```js
 > const databasePromise = connectDatabase(); //假设定义了一个异步方法,此方法能拿到你需要的所有数据
 > 
 > const booksPromise = databasePromise     //定义一个方法,在 databasePromise() 执行后寻找其内部书本信息
@@ -1562,8 +1553,8 @@ mineReadFile('./resource/content.txt').then(value => {
 > .then(getCurrentUser);
 > 
 > Promise.all([
-> booksPromise,
-> userPromise
+>   booksPromise,
+>   userPromise
 > ])
 > .then(([books, user]) => pickTopRecommendations(books, user));
 > ```
@@ -1574,7 +1565,7 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 注意，如果作为参数的 Promise 实例，自己定义了`catch`方法，那么它一旦被`rejected`，并不会触发`Promise.all()`的`catch`方法。
 >
-> ```
+> ```js
 > //定义一个状态将为成功的的promise
 > const p1 = new Promise((resolve, reject) => { resolve('hello')})
 > .then(result => result)
@@ -1584,8 +1575,8 @@ mineReadFile('./resource/content.txt').then(value => {
 > const p2 = new Promise((resolve, reject) => { throw new Error('报错了') })
 > .then(result => result)
 > .catch(e =>{
-> console.log('p2自己的catch捕获: ', e)
-> return e; //异常获取后原样返回,不做修改
+>   console.log('p2自己的catch捕获: ', e)
+>   return e; //异常获取后原样返回,不做修改
 > });
 > 
 > //调用 Promise.all 方法
@@ -1608,7 +1599,7 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 如果`p2`没有自己的`catch`方法，就会调用`Promise.all()`的`catch`方法。
 >
-> ```
+> ```js
 > //定义一个状态将为成功的的promise
 > const p1 = new Promise((resolve, reject) => { resolve('hello')})
 > .then(result => result)
@@ -1629,7 +1620,7 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > `Promise.race()`方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。
 >
-> ```
+> ```js
 > const p = Promise.race([p1, p2, p3]);
 > ```
 >
@@ -1641,11 +1632,11 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 如p1延时,开启了异步,内部正常是同步进行,所以`p2>p3>p1`,结果是`P2`
 >
-> ```
+> ```js
 > let p1 = new Promise((resolve, reject) => {
-> setTimeout(() => {
-> resolve('OK');
-> }, 1000);
+>   setTimeout(() => {
+>   	resolve('OK');
+>   }, 1000);
 > })
 > let p2 = Promise.resolve('Success');
 > let p3 = Promise.resolve('Oh Yeah');
@@ -1658,12 +1649,12 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 下面是一个例子，如果指定时间内没有获得结果，就将 Promise 的状态变为`reject`，否则变为`resolve`。
 >
-> ```
+> ```js
 > const p = Promise.race([
-> fetch('https://gitee.com/hongjilin'),
-> new Promise(function (resolve, reject) {
-> setTimeout(() => reject(new Error('请求超时!!!!')), 5000)
-> })
+>   fetch('https://gitee.com/hongjilin'),
+>   new Promise(function (resolve, reject) {
+>   	setTimeout(() => reject(new Error('请求超时!!!!')), 5000)
+>   })
 > ]);
 > 
 > p
@@ -1685,13 +1676,13 @@ mineReadFile('./resource/content.txt').then(value => {
 
 ##### a) 举个简单的🌰
 
-> ```
+> ```js
 > const promises = [
-> fetch('https://gitee.com/hongjilin'),
-> fetch('https://github.com/Hongjilin'),
-> fetch('./hong.json'),
+>   fetch('https://gitee.com/hongjilin'),
+>   fetch('https://github.com/Hongjilin'),
+>   fetch('./hong.json'),
 > ];
-> loading = true; //请求前将 loading 改为true ; 页面出现滚动加载图标蒙层
+> loading = true; //请求前将 loading 改为true; 页面出现滚动加载图标蒙层
 > await Promise.allSettled(promises);
 > loading = false;
 > ```
@@ -1702,19 +1693,19 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 该方法返回的新的 Promise 实例，一旦结束，状态总是`fulfilled`，不会变成`rejected`。状态变成`fulfilled`后，Promise 的监听函数接收到的参数是一个数组，每个成员对应一个传入`Promise.allSettled()`的 Promise 实例。
 >
-> ```
+> ```js
 > const resolved = Promise.resolve('返回成功状态的promise');
 > const rejected = Promise.reject('返回失败状态的promise');
 > 
 > const allSettledPromise = Promise.allSettled([resolved, rejected]);
 > // Promise.allSettled 得到的新实例状态只会是 `fulfilled`
 > allSettledPromise.then(function (results) {
-> console.log(results); //注意,这是 `fulfilled` 的回调函数,只有其状态为成功才能进到这里
+> 	console.log(results); //注意,这是 `fulfilled` 的回调函数,只有其状态为成功才能进到这里
 > });
 > /*
 > [
->   { "status": "fulfilled", "value": "返回成功状态的promise" },
->   { "status": "rejected", "reason": "返回失败状态的promise" }
+>     { "status": "fulfilled", "value": "返回成功状态的promise" },
+>     { "status": "rejected", "reason": "返回失败状态的promise" }
 > ]
 > */
 > ```
@@ -1726,7 +1717,7 @@ mineReadFile('./resource/content.txt').then(value => {
 
 ##### c) 举个返回值用法的🌰
 
-> ```
+> ```js
 > const promises = [ fetch('./hong.json'), fetch('https://gitee.com/hongjilin') ];
 > const results = await Promise.allSettled(promises);
 > 
@@ -1741,15 +1732,15 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > 有时候，我们不关心异步操作的结果，只关心这些操作有没有结束。这时，`Promise.allSettled()`方法就很有用。如果没有这个方法，想要确保所有操作都结束，就很麻烦。`Promise.all()`方法无法做到这一点。
 >
-> ```
+> ```js
 > const urls = [ 'https://gitee.com/hongjilin' ,'https://github.com/Hongjilin'];
 > const requests = urls.map(x => fetch(x));
 > //举例用 Promise.all 尝试实现,很明显,难以实现
 > try {
-> await Promise.all(requests);
-> console.log('所有请求都成功。');
+>   await Promise.all(requests);
+>   console.log('所有请求都成功。');
 > } catch {
-> console.log('至少一个请求失败，其他请求可能还没结束。');
+> 	console.log('至少一个请求失败，其他请求可能还没结束。');
 > }
 > ```
 >
@@ -1763,17 +1754,17 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > `Promise.any()`跟`Promise.race()`方法很像，只有一点不同，就是不会因为某个 Promise 变成`rejected`状态而结束。
 >
-> ```
+> ```js
 > const promises = [
-> fetch('https://gitee.com/hongjilin').then(() => 'a'),
-> fetch('https://github.com/Hongjilin').then(() => 'b'),
-> fetch('./hong.json').then(() => 'c'),
+>   fetch('https://gitee.com/hongjilin').then(() => 'a'),
+>   fetch('https://github.com/Hongjilin').then(() => 'b'),
+>   fetch('./hong.json').then(() => 'c'),
 > ];
 > try {
-> const first = await Promise.any(promises);
-> console.log(first);
+>   const first = await Promise.any(promises);
+>   console.log(first);
 > } catch (error) {
-> console.log(error);
+> 	console.log(error);
 > }
 > ```
 >
@@ -1794,14 +1785,14 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > 捕捉错误时，如果不用`try...catch`结构和 await 命令，可以像下面这样写。
 >
-> ```
+> ```js
 > Promise.any(promises).then(
-> (first) => {
-> // Any of the promises was fulfilled.
-> },
-> (error) => {
-> // All of the promises were rejected.
-> }
+>   (first) => {
+>   	// Any of the promises was fulfilled.
+>   },
+>   (error) => {
+>   	// All of the promises were rejected.
+>   }
 > );
 > ```
 
@@ -1809,17 +1800,17 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 下面是一个例子。
 >
-> ```
+> ```js
 > const resolved = Promise.resolve('成功');
 > const rejected = Promise.reject('失败了');
 > const alsoRejected = Promise.reject('太失败了');
 > 
 > Promise.any([resolved, rejected, alsoRejected]).then(function (result) {
-> console.log(result); // 成功
+> 	console.log(result); // 成功
 > });
 > 
 > Promise.any([rejected, alsoRejected]).catch(function (results) {
-> console.log(results);  //AggregateError: All promises were rejected
+> 	console.log(results);  //AggregateError: All promises were rejected
 > });
 > ```
 >
@@ -1829,7 +1820,7 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 有时需要将现有对象转为 Promise 对象，`Promise.resolve()`方法就起到这个作用。
 >
-> ```
+> ```js
 > const jsPromise = Promise.resolve($.ajax('https://gitee.com/hongjilin'));
 > ```
 >
@@ -1837,7 +1828,7 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > `Promise.resolve()`等价于下面的写法。
 >
-> ```
+> ```js
 > Promise.resolve('努力学习的汪')
 > // 等价于
 > new Promise(resolve => resolve('努力学习的汪'))
@@ -1853,24 +1844,24 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > `thenable`对象指的是具有`then`方法的对象，比如下面这个对象。
 >
-> ```
+> ```js
 > let thenable = {
->   then: function(resolve, reject) {
->   	resolve('成功');
->   }
+>     then: function(resolve, reject) {
+>       resolve('成功');
+>     }
 > };
 > ```
 >
 > `Promise.resolve()`方法会将这个对象转为 Promise 对象，然后就立即执行`thenable`对象的`then()`方法。
 >
-> ```
+> ```js
 > let thenable = {
->   then: function(resolve, reject) { resolve('成功') }
+>   	then: function(resolve, reject) { resolve('成功') }
 > };
 > 
 > let p1 = Promise.resolve(thenable);
 > p1.then(function (value) {
->   console.log(value);  // '成功'
+>   	console.log(value);  // '成功'
 > });
 > ```
 >
@@ -1880,11 +1871,11 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 如果参数是一个原始值，或者是一个不具有`then()`方法的对象，则`Promise.resolve()`方法返回一个新的 Promise 对象，状态为`resolved`。
 >
-> ```
+> ```js
 > const p = Promise.resolve('努力学习的汪');
 > 
 > p.then(function (s) {
-> console.log(s)
+> 	console.log(s)
 > });
 > // 努力学习的汪
 > ```
@@ -1901,7 +1892,7 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > 所以，如果希望得到一个 Promise 对象，比较方便的方法就是直接调用`Promise.resolve()`方法。
 >
-> ```
+> ```js
 > const p = Promise.resolve();
 > 
 > p.then(function () {});
@@ -1911,13 +1902,13 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > 需要注意的是，立即`resolve()`的 Promise 对象，是在本轮“事件循环”（event loop）的结束时执行，而不是在下一轮“事件循环”的开始时 --> 不懂的同学请看 [JavaScript笔记中的#4事件循环模型event-loop机制](https://gitee.com/hongjilin/hongs-study-notes/tree/master/编程_前端开发学习笔记/HTML+CSS+JS基础笔记/JavaScript笔记#4事件循环模型event-loop机制) ,本人在此有进行详细的解析
 >
-> ```
+> ```js
 > setTimeout(function () {
-> console.log('three'); //这里是新的一轮事件循环
+> 	console.log('three'); //这里是新的一轮事件循环
 > }, 0);
 > 
 > Promise.resolve().then(function () {
-> console.log('two'); //本轮同步代码结束后,新一轮事件循环前,就执行
+> 	console.log('two'); //本轮同步代码结束后,新一轮事件循环前,就执行
 > });
 > 
 > console.log('one');
@@ -1933,13 +1924,13 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > `Promise.reject(reason)`方法也会返回一个新的 Promise 实例，该实例的状态为`rejected`。
 >
-> ```
+> ```js
 > const p = Promise.reject('出错了');
 > // 等同于
 > const p = new Promise((resolve, reject) => reject('出错了'))
 > 
 > p.then(null, function (s) {
-> console.log(s)
+> 	console.log(s)
 > });
 > // 出错了
 > ```
@@ -1948,10 +1939,10 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > `Promise.reject()`方法的参数，会原封不动地作为`reject`的理由，变成后续方法的参数。
 >
-> ```
+> ```js
 > Promise.reject('出错了')
 > .catch(e => {
-> console.log(e === '出错了')
+> 	console.log(e === '出错了')
 > })
 > // true
 > ```
@@ -1962,13 +1953,13 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 实际开发中，经常遇到一种情况：不知道或者不想区分，函数`f`是同步函数还是异步操作，但是想用 Promise 来处理它。因为这样就可以不管`f`是否包含异步操作，都用`then`方法指定下一步流程，用`catch`方法处理`f`抛出的错误。一般就会采用下面的写法。
 >
-> ```
+> ```js
 > Promise.resolve().then(f)
 > ```
 >
 > 上面的写法有一个缺点，就是如果`f`是同步函数，那么它会在本轮事件循环的末尾执行。
 >
-> ```
+> ```js
 > const f = () => console.log('now');
 > Promise.resolve().then(f);
 > console.log('next');
@@ -1984,7 +1975,7 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 该知识点如果不懂的可以继续往下看,这是ES6的另外一块知识点内容
 >
-> ```
+> ```js
 > const f = () => console.log('now');
 > (async () => f())();
 > console.log('next');
@@ -1994,14 +1985,14 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > 上面代码中，第二行是一个立即执行的匿名函数，会立即执行里面的`async`函数，因此如果`f`是同步的，就会得到同步的结果；如果`f`是异步的，就可以用`then`指定下一步，就像下面的写法。
 >
-> ```
+> ```js
 > (async () => f())()
 > .then(...)
 > ```
 >
 > 需要注意的是，`async () => f()`会吃掉`f()`抛出的错误。所以，如果想捕获错误，要使用`promise.catch`方法。
 >
-> ```
+> ```js
 > (async () => f())()
 > .then(...)
 > .catch(...)
@@ -2009,11 +2000,11 @@ mineReadFile('./resource/content.txt').then(value => {
 
 ##### b) 写法二 : 使用`new Promise()`
 
-> ```
+> ```js
 > const f = () => console.log('now');
 > (
->  () => new Promise(
->    resolve => resolve(f())
+>    () => new Promise(
+>      resolve => resolve(f())
 >  )
 > )();
 > console.log('next');
@@ -2027,7 +2018,7 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > 鉴于这是一个很常见的需求，所以现在有一个[提案](https://github.com/ljharb/proposal-promise-try)，提供`Promise.try`方法替代上面的写法。
 >
-> ```
+> ```js
 > const f = () => console.log('now');
 > Promise.try(f);
 > console.log('next');
@@ -2039,18 +2030,18 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > 由于`Promise.try`为所有操作提供了统一的处理机制，所以如果想用`then`方法管理流程，最好都用`Promise.try`包装一下。这样有[许多好处](http://cryto.net/~joepie91/blog/2016/05/11/what-is-promise-try-and-why-does-it-matter/)，其中一点就是可以更好地管理异常。
 >
-> ```
+> ```js
 > function getUsername(userId) {
->  return database.users.get({id: userId})
->  .then(function(user) {
->    return user.name;
->  });
+>    return database.users.get({id: userId})
+>    .then(function(user) {
+>      	return user.name;
+>    });
 > }
 > ```
 >
 > 上面代码中，`database.users.get()`返回一个 Promise 对象，如果抛出异步错误，可以用`catch`方法捕获，就像下面这样写。
 >
-> ```
+> ```js
 > database.users.get({id: userId})
 > .then(...)
 > .catch(...)
@@ -2058,19 +2049,19 @@ mineReadFile('./resource/content.txt').then(value => {
 >
 > 但是`database.users.get()`可能还会抛出同步错误（比如数据库连接错误，具体要看实现方法），这时你就不得不用`try...catch`去捕获。
 >
-> ```
+> ```js
 > try {
->  database.users.get({id: userId})
->  .then(...)
->  .catch(...)
+>    database.users.get({id: userId})
+>    .then(...)
+>    .catch(...)
 > } catch (e) {
->  // ...
+>  	// ...
 > }
 > ```
 >
 > 上面这样的写法就很笨拙了，这时就可以统一用`promise.catch()`捕获所有同步和异步的错误。
 >
-> ```
+> ```js
 > Promise.try(() => database.users.get({id: userId}))
 >  .then(...)
 >  .catch(...)
@@ -2096,7 +2087,7 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > html引入,该章节后续html大部分重复 除非必要,否则不再放上来
 
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2122,7 +2113,7 @@ mineReadFile('./resource/content.txt').then(value => {
 
 > promise.js -->使用原生写法,最后会改为class写法
 
-```
+```js
 function Promise(executor){}
 //添加 then 方法
 Promise.prototype.then = function(onResolved, onRejected){}
@@ -2138,7 +2129,7 @@ Promise.prototype.then = function(onResolved, onRejected){}
 >
 > 1. 默认设置 `PromiseState = 'pending'以及 PromiseResult = null`,这就是promise状态基础
 
-```
+```js
 //声明构造函数
 function Promise(executor) {
   //添加属性
@@ -2173,7 +2164,7 @@ Promise.prototype.then = function (onResolved, onRejected) {}
 > 1. 在2的基础上进行修改:将执行器放入`try-catch()`中
 > 2. 在catch中使用`reject()`修改 promise 对象状态为『`失败`』
 
-```
+```js
  try {
     //同步调用『执行器函数』
     executor(resolve, reject);
@@ -2188,7 +2179,7 @@ Promise.prototype.then = function (onResolved, onRejected) {}
 > 1. 基于2 3代码中resolve和reject方法进修改
 > 2. 在成功与失败函数中添加判断` if(self.PromiseState !== 'pending') return;`,如果进入函数时状态不为`pending`直接退出,这样就能做到状态只能从`pending`改至其他状态且做到只能改一次
 
-```
+```js
 html调用--------------------------------------------------------
  let p = new Promise((resolve, reject) => {
       reject("error");
@@ -2224,7 +2215,7 @@ promise.js修改--------------------------------------------------------
 > 1. 修改`Promise.prototype.then`方法
 > 2. 传入`then(成功回调,失败回调)`,当调用then后,会判断当前`this.PromiseState`的状态,当其为成功时调用`成功回调`,失败时调用`失败回调`
 
-```
+```js
 html调用------------------------------------------------------------
     let p = new Promise((resolve, reject) => {
       // resolve('OK');// reject("Error");
@@ -2260,7 +2251,7 @@ Promise.prototype.then = function (onResolved, onRejected) {
 >
 > 1. 此处的then`仍有瑕疵`,需要继续完善
 
-```
+```js
 html调用------------------------------------------------------------
  //实例化对象
     let p = new Promise((resolve, reject) => {
@@ -2321,7 +2312,7 @@ Promise.prototype.then = function (onResolved, onRejected) {
 >
 > 1. 此处的then`仍有瑕疵`,需要继续完善
 
-```
+```js
 html调用------------------------------------------------------------
 //实例化对象
    let p = new Promise((resolve, reject) => {setTimeout(() => {reject('No');}, 1000);});
@@ -2383,7 +2374,7 @@ Promise.prototype.then = function(onResolved, onRejected){
 >
 >  Ⅲ-如果返回值是一个异常,返回状态设置为失败
 
-```
+```js
 html调用------------------------------------------------------------
   //实例化对象
     let p = new Promise((resolve, reject) => {resolve('OK');});
@@ -2429,7 +2420,7 @@ Promise.prototype.then = function(onResolved, onRejected){
 >
 > Ⅱ-加工后存入实例回调函数数组,之后在`resolve与reject`方法中调用即可(同`6`)
 
-```
+```js
 html调用------------------------------------------------------------
    //实例化对象
     let p = new Promise((resolve, reject) => {
@@ -2486,7 +2477,7 @@ promise.js修改与实现-----------------------------------------------------
 
 > 1. 在8、9、10中可以看出,其判断与改变返回结果状态的代码块是基本重复的,所以可以将其抽出
 
-```
+```js
 //添加 then 方法
 Promise.prototype.then = function (onResolved, onRejected) {
   const self = this;
@@ -2543,7 +2534,7 @@ Promise.prototype.then = function (onResolved, onRejected) {
 >
 > 解:进行回调函数判断,当其为空时,基于默认回调函数内容:`直接往外抛出`这样下方的`then() or catch()`就可以承接到异常或者值
 
-```
+```js
 html调用------------------------------------------------------------  
 //实例化对象
     let p = new Promise((resolve, reject) => {
@@ -2578,7 +2569,7 @@ Promise.prototype.catch = function(onRejected){  ---------------异常穿透 修
 >
 >    Ⅱ-如果为`非promise`:状态设置为成功
 
-```
+```js
 html调用------------------------------------------------------------  
  const p = Promise.resolve('OK');
  const p2 = Promise.resolve(new Promise((resolve, reject) => {     
@@ -2596,7 +2587,7 @@ Promise.resolve = function(value){
             value.then(
                 v=>{resolve(v);},
                 r=>{reject(r);}
-            )}else{resolve(value); }//状态设置为成功
+        )}else{resolve(value); }//状态设置为成功
     });
 }
 ```
@@ -2605,7 +2596,7 @@ Promise.resolve = function(value){
 
 > 不同于resolve,这个方法只要把传入参数再次传出去,并将状态改为`失败`即可
 
-```
+```js
 html调用------------------------------------------------------------  
    //Promise.reject
     const p = Promise.reject('Error');
@@ -2629,7 +2620,7 @@ Promise.reject = function (reason) {
 > 1. 遍历传入的promise数组,每当遍历结果是成功,则用计数器记录,当计数器等同于数组长度,则全部成功,这时候可以返回`成功`状态
 > 2. 如果当数组中任意一个promise的执行结果是`reject`,直接中断,返回状态为`失败`
 
-```
+```js
 html调用------------------------------------------------------------  
 let p1 = new Promise((resolve, reject) => {
       setTimeout(() => {resolve('OK'); }, 1000)
@@ -2670,7 +2661,7 @@ Promise.all = function (promises) {
 
 > 直接谁先执行就返回谁的运行结果即可
 
-```
+```js
 html调用------------------------------------------------------------  
  let p1 = new Promise((resolve, reject) => {
       setTimeout(() => {resolve('OK');});
@@ -2704,7 +2695,7 @@ Promise.race = function (promises) {
 
 > 1. 如果我们运行下面代码,正确顺序是: 111 --> 333 -->444
 >
-> ```
+> ```js
 >  let p1 = new Promise((resolve, reject) => {
 >      reject('OK');
 >      console.log(111);
@@ -2725,7 +2716,7 @@ Promise.race = function (promises) {
 >
 > 1. 我们只要在以下四处地方的`回调函数调用`外层包裹一层定时器(不一定是定时器,开启异步即可),即可做到异步操作
 >
-> ```
+> ```js
 > function resolve(data){
 >        setTimeout(() => { self.callbacks.forEach(item => { item.onResolved(data); }); });--修改1
 >    }
@@ -2756,7 +2747,7 @@ Promise.race = function (promises) {
 > 2. 将其改为class写法
 > 3. 下面为promisedemo.js代码
 >
-> ```
+> ```js
 > class Promise {
 >  //构造方法
 >  constructor(executor) {
@@ -2941,7 +2932,7 @@ Promise.race = function (promises) {
 
 > html文件调用
 >
-> ```
+> ```html
 > <!DOCTYPE html>
 > <html lang="en">
 > 
@@ -2974,7 +2965,7 @@ Promise.race = function (promises) {
 > </html>
 > ```
 
-# 三、Promise+ async + await
+# 四、Promise+ async + await
 
 > ##### 1)Promise==>异步
 >
@@ -2985,7 +2976,7 @@ Promise.race = function (promises) {
 >
 > ##### 3)async==>同步转异步
 >
-> 1. 方法体内部的某个表达式使用await修饰，那么这个方法体所属方法必须要用async修饰所以使用awit方法会自动升级为异步方法
+> 1. 方法体内部的某个表达式使用`await`修饰，那么这个方法体所属方法必须要用`async`修饰所以使用`await`方法会自动升级为异步方法
 >
 > ###### 4)mdn文档
 >
@@ -3024,29 +3015,35 @@ Promise.race = function (promises) {
 >
 > Ⅱ-如果声明了.then(),则值会被.then()接住,放到里面处理,如果需要再次抛出--`某些业务场景需要` ,然后在下一个then()或者外部使用, 则可以 .then(v=>return v) ---前提这个链式调用前曾使用过resolve() 与reject()才用return,不然就用这两个resolve() 与reject()
 >
-> ```
+> ```js
 > //讲解时写的简单demo
 > let resolveCommon = ()=> {
->  let result="普通promise初始值"
->   result=new Promise(resolve => {setTimeout(function() { resolve("promise普通结果"); }, 1000); })
->  console.log(result)
->  //打印结果: Promise { <pending> } 
+>   let result="普通promise初始值"
+>   result=new Promise(resolve => {
+>     setTimeout(function() { resolve("promise普通结果"); }, 1000); 
+>   })
+>   console.log(result)
+>   //打印结果: Promise { <pending> } 
 > };
 > let resolveAsync=async ()=> {
->  let result="await+async的promise初始值"
->   result=await new Promise(resolve => { setTimeout(function() { resolve("这是async+await结果"); }, 1000);})
->  console.log(result)
->  //打印结果: 这是async+await结果  这里就是正确的值,你可以在下一步进行正常使用,也可以用在下一步的promise中
->  //------------------------------------------------------
->  //在第二个promise中调用使用
->  let result2=""
->  result2= await new Promise(resolve => { setTimeout(function() { resolve(result+"+经过第二个promise加工"); }, 1000);})
->  .then(v=>{
->    console.log("第二个promise的then()中打印并返回:",v)
->    return v+",经过then()加工返回"
->  })
->  console.log("最终结果:第二个promise外部结果打印,",result2)
->  //---------------------------------------------
+>   let result="await+async的promise初始值"
+>   result=await new Promise(resolve => { 
+>     setTimeout(function() { resolve("这是async+await结果"); }, 1000);
+>   })
+>   console.log(result)
+>   //打印结果: 这是async+await结果  这里就是正确的值,你可以在下一步进行正常使用,也可以用在下一步的promise中
+>   //------------------------------------------------------
+>   //在第二个promise中调用使用
+>   let result2=""
+>   result2= await new Promise(resolve => { 
+>     setTimeout(function() { resolve(result+"+经过第二个promise加工"); }, 1000);
+>   })
+>   .then(v=>{
+>     console.log("第二个promise的then()中打印并返回:",v)
+>     return v+",经过then()加工返回"
+>   })
+>   console.log("最终结果:第二个promise外部结果打印,",result2)
+>   //---------------------------------------------
 > };
 > resolveCommon()  //调用普通promise函数
 > resolveAsync()    //调用await+async
@@ -3054,9 +3051,9 @@ Promise.race = function (promises) {
 > 运行结果
 > 1.resolveCommon() 运行结果:    Promise { <pending> }
 > 2.resolveAsync() 运行结果:     
->  这是async+await结果
->  第二个promise的then()中打印并返回: 这是async+await结果+经过第二个promise加工
->  最终结果:第二个promise外部结果打印, 这是async+await结果+经过第二个promise加工,经过then()加工返回
+> 这是async+await结果
+> 第二个promise的then()中打印并返回: 这是async+await结果+经过第二个promise加工
+> 最终结果:第二个promise外部结果打印, 这是async+await结果+经过第二个promise加工,经过then()加工返回
 > */
 > ```
 >
@@ -3083,7 +3080,7 @@ Promise.race = function (promises) {
 >
 > 方法体内部的某个表达式使用await修饰，那么这个方法体所属方法必须要用async修饰所以使用awit方法会自动升级为异步方法
 
-# 四、宏任务与微任务
+# 五、宏任务与微任务
 
 ## Ⅰ-说明
 
@@ -3110,7 +3107,7 @@ Promise.race = function (promises) {
 
 > 此处会给出每个打印放入什么队列,加深你的印象
 >
-> ```
+> ```js
 > setTimeout(() => { 
 >       console.log('timeout callback1（）')//立即放入宏队列
 >       Promise.resolve(3).then(
@@ -3147,13 +3144,13 @@ Promise.race = function (promises) {
 
 > 尝试自己脑海中用自己理解 '运行' 一下, 然后把结果写下来,再去下面结果做对比
 >
-> ```
+> ```js
 > setTimeout(() => console.log('代码开始执行'),0)
 > new Promise((resolve,reject) => {
->  console.log('开始for循环');
->  for(let i=0;i<10000;i++){
->    i == 99 && resolve()
->  }
+>    console.log('开始for循环');
+>    for(let i=0;i<10000;i++){
+>        i == 99 && resolve()
+>    }
 > }).then(() => console.log('执行then函数'))
 > console.log('代码执行结束');
 > ```
@@ -3162,14 +3159,14 @@ Promise.race = function (promises) {
 
 #### a) 第一个栗子的结果
 
-> ```
+> ```js
 > '同步代码',
->  'Promise onResolved1()',
->  'Promise onResolved2()',
+>  'Promise onResolved1() 1',
+>  'Promise onResolved2() 2',
 >  'timeout callback1（）',
->  'Promise onResolved3()',
+>  'Promise onResolved3() 3',
 >  'timeout callback2（）',
->  'timeout callback3（）'
+>  'timeout callback3（） 1'
 > ```
 
 #### b) 第二个栗子的结果
@@ -3180,7 +3177,7 @@ Promise.race = function (promises) {
 >
 > 当然人都是会好奇的,没有打破砂锅问到底的精神呢也当不了一个好程序员,那我就在下方额外给出解释
 
-# 五、对浏览器console控制台输出undefined的分析
+# 六、对浏览器console控制台输出undefined的分析
 
 ## Ⅰ- 出现场景
 
