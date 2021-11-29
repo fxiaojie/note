@@ -86,6 +86,9 @@ let obj2 = {...obj1}
 
 ```js
 Object.assign(target,source)
+
+// 展开语法
+let newObj = {...obj}
 ```
 
 ## 防抖

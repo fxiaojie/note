@@ -746,7 +746,7 @@ module.exports = {
 3. 每个组件都有自己的```$route```属性，里面存储着自己的路由信息。
 4. 整个应用只有一个router，可以通过组件的```$router```属性获取到。
 
-### 3.多级路由（多级路由）
+### 3.嵌套路由（多级路由）
 
 1. 配置路由规则，使用children配置项：
 
@@ -785,7 +785,7 @@ module.exports = {
 
    ```vue
    <!-- 跳转并携带query参数，to的字符串写法 -->
-   <router-link :to="/home/message/detail?id=666&title=你好">跳转</router-link>
+   <router-link :to="`/home/message/detail?id=666&title=你好`">跳转</router-link>
    				
    <!-- 跳转并携带query参数，to的对象写法 -->
    <router-link 
@@ -793,7 +793,7 @@ module.exports = {
    		path:'/home/message/detail',
    		query:{
    		   id:666,
-               title:'你好'
+           title:'你好'
    		}
    	}"
    >跳转</router-link>
@@ -824,7 +824,7 @@ module.exports = {
       			component:Test,
       			children:[
       				{
-                            name:'hello' //给路由命名
+                 name:'hello' //给路由命名
       					path:'welcome',
       					component:Hello,
       				}
@@ -849,7 +849,7 @@ module.exports = {
       		name:'hello',
       		query:{
       		   id:666,
-                  title:'你好'
+              title:'你好'
       		}
       	}"
       >跳转</router-link>
@@ -894,7 +894,7 @@ module.exports = {
    		name:'xiangqing',
    		params:{
    		   id:666,
-               title:'你好'
+           title:'你好'
    		}
    	}"
    >跳转</router-link>
@@ -922,7 +922,7 @@ module.exports = {
 	//第一种写法：props值为对象，该对象中所有的key-value的组合最终都会通过props传给Detail组件
 	// props:{a:900}
 
-	//第二种写法：props值为布尔值，布尔值为true，则把路由收到的所有params参数通过props传给Detail组件
+	//第二种写法：props值为布尔值，布尔值为true，则把路由收到的所有params参数,以props的形式传给Detail组件
 	// props:true
 	
 	//第三种写法：props值为函数，该函数返回的对象中每一组key-value都会通过props传给Detail组件
@@ -976,7 +976,8 @@ module.exports = {
 2. 具体编码：
 
    ```vue
-   <keep-alive include="News"> 
+   <!-- include是保持活性的组件名 -->
+   <keep-alive include="News">
        <router-view></router-view>
    </keep-alive>
    ```
