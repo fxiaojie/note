@@ -266,3 +266,25 @@ FROM `products` GROUP BY brand
 HAVING avgPrice < 4000 and avgScore > 7;
 ```
 
+#### 创建外键
+
+```mysql
+# 如果是创建表添加外键约束，我们需要在创建表的()最后添加如下语句：
+FOREIGN KEY (brand_id) REFERENCES brand(id);
+#如果是表已经创建好，额外添加外键：
+ALTER TABLE `products` ADD FOREIGN KEY (brand_id) REFERENCES brand(id);
+```
+
+#### 修改brand_id关联外键时的action
+
+```mysql
+# 1.获取到目前的外键的名称
+SHOW CREATE TABLE `products`;
+# 2.根据名称将外键删除掉
+ALTER TABLE `products` DROP FOREIGN KEY products_ibfk_1;
+# 3.重新添加外键约束
+ALTER TABLE `products` ADD FOREIGN KEY (brand_id) REFERENCES brand(id)
+																									ON UPDATE CASCADE
+																									ON DELETE RESTRICT;
+```
+
