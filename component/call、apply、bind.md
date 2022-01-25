@@ -9,6 +9,7 @@ Function.prototype.xjcall = function(thisArg, ...arg) {
   thisArg = (thisArg !== undefined && thisArg !== null) ? Object(thisArg) : window;
   
   // 调用需要被执行的函数
+  // 在thisArg上添加fn函数作为其属性
   thisArg.fn = fn;
   const result = thisArg.fn(...arg);
   // 删除对象的属性

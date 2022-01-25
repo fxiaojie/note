@@ -2,7 +2,7 @@ exports 相当于在内存中添加属性，require指向这一内存（本质�
 
 module.exports = exports，导出的是module.exports
 
-export/inport：export 导出的**不是对象**，是值的引用
+export/import：export 导出的**不是对象**，是值的引用
 
 拼接路径
 

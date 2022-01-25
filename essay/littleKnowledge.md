@@ -1,4 +1,4 @@
-## Object.prototype.toString.call() 判断数据类型
+### Object.prototype.toString.call() 判断数据类型
 
 ```js
 var toString = Object.prototype.toString;
@@ -198,7 +198,7 @@ data () {
 
 ## 对象相关：
 
-1. 中括号`[]`包裹属性名时，属性名可以为变量
+1. 中括号`[]`包裹属性名时，属性名可以为变量（可计算属性）
 
 ## 折叠
 
@@ -272,6 +272,14 @@ const {a:{b:value}} = obj; //连续解构赋值+重命名
 ## let/const
 
 如果区块中存在`let`和`const`命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错
+
+## 闭包
+
+一个普通的函数function，如果它可以访问外层作用于的自由变量，那么这个函数就是一个闭包； 
+
+从广义的角度来说：JavaScript中的函数都是闭包； 
+
+从狭义的角度来说：JavaScript中一个函数，如果访问了外层作用于的变量，那么它是一个闭包
 
 
 
